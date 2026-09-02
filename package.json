@@ -1,0 +1,48 @@
+{
+  "name": "tempmail-mcp",
+  "version": "0.0.1",
+  "description": "A MCP server that provides temporary email services for registration verification, aggregating multiple temp mail providers.",
+  "license": "MIT",
+  "author": "",
+  "homepage": "https://github.com/your-username/tempmail-mcp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/tempmail-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/tempmail-mcp/issues"
+  },
+  "keywords": [
+    "mcp",
+    "temp-mail",
+    "temporary-email",
+    "disposable-email",
+    "verification",
+    "model-context-protocol",
+    "claude",
+    "ai"
+  ],
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "tempmail-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "test": "node test-e2e.mjs",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "typescript": "^5.7.3"
+  }
+}
