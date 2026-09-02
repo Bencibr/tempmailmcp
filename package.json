@@ -1,16 +1,16 @@
 {
-  "name": "tempmail-mcp",
+  "name": "@bencibro/tempmail-mcp",
   "version": "0.0.1",
   "description": "A MCP server that provides temporary email services for registration verification, aggregating multiple temp mail providers.",
   "license": "MIT",
   "author": "",
-  "homepage": "https://github.com/your-username/tempmail-mcp",
+  "homepage": "https://github.com/Bencibr/tempmailmcp",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/tempmail-mcp.git"
+    "url": "https://github.com/Bencibr/tempmailmcp.git"
   },
   "bugs": {
-    "url": "https://github.com/your-username/tempmail-mcp/issues"
+    "url": "https://github.com/Bencibr/tempmailmcp/issues"
   },
   "keywords": [
     "mcp",
@@ -28,8 +28,16 @@
     "tempmail-mcp": "dist/index.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "README.zh-CN.md",
+    "GUIDE.md",
+    "GUIDE.zh-CN.md",
+    "LICENSE"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",

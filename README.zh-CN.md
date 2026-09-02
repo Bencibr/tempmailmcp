@@ -32,17 +32,23 @@
 
 ## 安装
 
-### 从 npm 安装（发布后）
+### 从 npm 安装
 
 ```bash
-npm install -g tempmail-mcp
+npm install -g @bencibro/tempmail-mcp
+```
+
+或直接使用 `npx` 运行（无需安装）：
+
+```bash
+npx @bencibro/tempmail-mcp
 ```
 
 ### 从源码安装
 
 ```bash
-git clone https://github.com/your-username/tempmail-mcp.git
-cd tempmail-mcp
+git clone https://github.com/Bencibr/tempmailmcp.git
+cd tempmailmcp
 npm install
 npm run build
 ```
@@ -58,6 +64,8 @@ npm run build
 
 ### Claude Desktop / Cursor / MCP 客户端配置
 
+#### 方式 A：使用 `npx`（推荐，无需安装）
+
 将以下内容添加到你的 MCP 客户端配置中（如 `claude_desktop_config.json`）：
 
 ```json
@@ -65,7 +73,7 @@ npm run build
   "mcpServers": {
     "tempmail": {
       "command": "npx",
-      "args": ["-y", "tempmail-mcp"],
+      "args": ["-y", "@bencibro/tempmail-mcp"],
       "env": {
         "MAILDROP_API_KEY": "你的-maildrop-api-key",
         "MAILCX_API_TOKEN": "你的-mailcx-api-token"
@@ -75,7 +83,40 @@ npm run build
 }
 ```
 
-如果只需要免费服务商（无需 API Key），直接省略 `env` 块即可。
+如果只需要免费服务商（无需 API Key），直接省略 `env` 块：
+
+```json
+{
+  "mcpServers": {
+    "tempmail": {
+      "command": "npx",
+      "args": ["-y", "@bencibro/tempmail-mcp"]
+    }
+  }
+}
+```
+
+#### 方式 B：全局安装
+
+```bash
+npm install -g @bencibro/tempmail-mcp
+```
+
+然后使用 `tempmail-mcp` 作为命令：
+
+```json
+{
+  "mcpServers": {
+    "tempmail": {
+      "command": "tempmail-mcp",
+      "env": {
+        "MAILDROP_API_KEY": "你的-maildrop-api-key",
+        "MAILCX_API_TOKEN": "你的-mailcx-api-token"
+      }
+    }
+  }
+}
+```
 
 **没有 API Key？** 使用 `auto_register` 工具自动获取免费的 MailDrop 或 mail.cx API Key — **无需浏览器**，纯 HTTP API 调用。参见下方的[自动注册](#auto_register)。
 

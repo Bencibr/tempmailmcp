@@ -32,17 +32,23 @@ A [Model Context Protocol](https://modelcontextprotocol.io) server that provides
 
 ## Installation
 
-### From npm (when published)
+### From npm
 
 ```bash
-npm install -g tempmail-mcp
+npm install -g @bencibro/tempmail-mcp
+```
+
+Or use directly with `npx` (no install needed):
+
+```bash
+npx @bencibro/tempmail-mcp
 ```
 
 ### From source
 
 ```bash
-git clone https://github.com/your-username/tempmail-mcp.git
-cd tempmail-mcp
+git clone https://github.com/Bencibr/tempmailmcp.git
+cd tempmailmcp
 npm install
 npm run build
 ```
@@ -58,6 +64,8 @@ npm run build
 
 ### Claude Desktop / Cursor / MCP Client Config
 
+#### Option A: Using `npx` (recommended, no install needed)
+
 Add to your MCP client configuration (e.g. `claude_desktop_config.json`):
 
 ```json
@@ -65,7 +73,7 @@ Add to your MCP client configuration (e.g. `claude_desktop_config.json`):
   "mcpServers": {
     "tempmail": {
       "command": "npx",
-      "args": ["-y", "tempmail-mcp"],
+      "args": ["-y", "@bencibro/tempmail-mcp"],
       "env": {
         "MAILDROP_API_KEY": "your-maildrop-api-key",
         "MAILCX_API_TOKEN": "your-mailcx-api-token"
@@ -75,7 +83,40 @@ Add to your MCP client configuration (e.g. `claude_desktop_config.json`):
 }
 ```
 
-If you only need the free providers (no API keys), simply omit the `env` block.
+If you only need the free providers (no API keys), simply omit the `env` block:
+
+```json
+{
+  "mcpServers": {
+    "tempmail": {
+      "command": "npx",
+      "args": ["-y", "@bencibro/tempmail-mcp"]
+    }
+  }
+}
+```
+
+#### Option B: Global install
+
+```bash
+npm install -g @bencibro/tempmail-mcp
+```
+
+Then use `tempmail-mcp` as the command:
+
+```json
+{
+  "mcpServers": {
+    "tempmail": {
+      "command": "tempmail-mcp",
+      "env": {
+        "MAILDROP_API_KEY": "your-maildrop-api-key",
+        "MAILCX_API_TOKEN": "your-mailcx-api-token"
+      }
+    }
+  }
+}
+```
 
 **Don't have an API key?** Use the `auto_register` tool to automatically obtain a free MailDrop or mail.cx API key — **no browser needed**, pure HTTP API calls. See [Auto-Register](#auto_register) below.
 
