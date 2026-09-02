@@ -1,6 +1,6 @@
 {
   "name": "@bencibro/tempmail-mcp",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A MCP server that provides temporary email services for registration verification, aggregating multiple temp mail providers.",
   "license": "MIT",
   "author": "",

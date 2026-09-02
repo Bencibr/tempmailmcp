@@ -151,10 +151,18 @@ Step 3: list_providers → Now shows all 6 providers
 
 ### Verification Code Extraction
 
-`get_verification_code` uses pattern matching to extract codes:
-- Looks for keywords: `code`, `verification`, `verify`, `otp`, `pin`, `passcode`
-- Extracts 4-8 digit numbers or alphanumeric codes near those keywords
-- Falls back to any standalone 4-8 digit number
+`get_verification_code` uses multi-strategy pattern matching to extract codes:
+
+1. **Contextual matching** (highest priority): Looks for keywords near a code-like token:
+   - English: `code`, `verification`, `verify`, `otp`, `pin`, `passcode`, `confirm`
+   - Chinese: `验证码`, `驗證碼`, `验证`, `认证`, `認証`, `激活`, `確認`, `确认`
+   - Japanese: `認証`, `確認`, `コード`
+   - Russian: `код`, `подтверждения`, `верификации`, `проверочный`, `пароль`, `подтвердить`
+   - French: `code`, `vérification`, `confirmer`, `confirmation`, `activation`
+   - German: `Code`, `Bestätigung`, `Verifizierung`, `Prüfung`, `Passwort`, `Pin`, `bestätigen`
+   - Extracts 4-8 digit numbers or uppercase alphanumeric codes near those keywords
+2. **Standalone pure-digit codes**: Falls back to any standalone 4-8 digit number (6-digit codes prioritized), filtering out obvious false positives like years
+3. **Alphanumeric codes** (last resort): Falls back to uppercase alphanumeric tokens, filtering out pure-letter words
 
 If extraction fails (returns `code: null`), call `get_message` and read the email body manually.
 

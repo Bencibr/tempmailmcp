@@ -152,10 +152,18 @@
 
 ### 验证码提取
 
-`get_verification_code` 使用模式匹配提取验证码：
-- 查找关键词：`code`、`verification`、`verify`、`otp`、`pin`、`passcode`、`验证`、`認証`
-- 提取这些关键词附近的 4-8 位数字或字母数字代码
-- 回退到任何独立的 4-8 位数字
+`get_verification_code` 使用多策略模式匹配提取验证码：
+
+1. **上下文匹配**（最高优先级）：在关键词附近查找验证码：
+   - 英文：`code`、`verification`、`verify`、`otp`、`pin`、`passcode`、`confirm`
+   - 中文：`验证码`、`驗證碼`、`验证`、`认证`、`認証`、`激活`、`確認`、`确认`
+   - 日文：`認証`、`確認`、`コード`
+   - 俄文：`код`、`подтверждения`、`верификации`、`проверочный`、`пароль`、`подтвердить`
+   - 法文：`code`、`vérification`、`confirmer`、`confirmation`、`activation`
+   - 德文：`Code`、`Bestätigung`、`Verifizierung`、`Prüfung`、`Passwort`、`Pin`、`bestätigen`
+   - 提取关键词附近的 4-8 位纯数字或大写字母数字代码
+2. **独立纯数字验证码**：回退到任何独立的 4-8 位数字（优先匹配 6 位），自动过滤年份等误匹配
+3. **字母数字验证码**（最后手段）：回退到大写字母数字组合，自动过滤纯字母单词
 
 如果提取失败（返回 `code: null`），调用 `get_message` 手动阅读邮件正文。
 

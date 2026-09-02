@@ -12,7 +12,7 @@ A [Model Context Protocol](https://modelcontextprotocol.io) server that provides
 - **Multi-provider aggregation** — 6 temp-mail providers behind one unified interface
 - **No API key required** for 4 out of 6 providers (Mail.tm, Guerrilla Mail, 1secmail, Catchmail)
 - **Auto-registration** — automatically obtain MailDrop and mail.cx API keys via pure HTTP API calls (no browser needed)
-- **Verification code extraction** — automatically extracts OTP/verification codes from incoming emails
+- **Verification code extraction** — automatically extracts OTP/verification codes from incoming emails in **6 languages** (English, Chinese, Japanese, Russian, French, German)
 - **Wait-for-email** — blocking/long-poll until a matching email arrives
 - **Session management** — tracks created mailboxes in-memory for the MCP session
 - **Zero heavy dependencies** — no Puppeteer, no Playwright, just Node.js built-in modules
@@ -165,10 +165,15 @@ Block until a matching email arrives. Returns the first matching message.
 
 ### `get_verification_code`
 
-Wait for a verification email and automatically extract the verification code.
+Wait for a verification email and automatically extract the verification code. Supports verification emails in **6 languages**: English, Chinese (简体/繁体), Japanese, Russian, French, and German.
+
+Uses a multi-strategy extraction algorithm:
+1. **Contextual matching** — looks for language-specific keywords (e.g. `code`, `验证码`, `認証`, `код`, `vérification`, `Bestätigung`) near a code-like token
+2. **Standalone digit codes** — falls back to pure-digit codes (6-digit prioritized), filtering out years and false positives
+3. **Alphanumeric codes** — last-resort fallback to uppercase alphanumeric tokens, filtering out pure-letter words
 
 - **address**: The temporary email address.
-- **subjectContains** (optional): Filter (e.g. `"verification"`, `"confirm"`, `"code"`).
+- **subjectContains** (optional): Filter (e.g. `"verification"`, `"confirm"`, `"code"`, `"验证"`).
 - **fromContains** (optional): Filter by sender.
 - **timeoutMs** (optional, default `60000`): Timeout in ms.
 
